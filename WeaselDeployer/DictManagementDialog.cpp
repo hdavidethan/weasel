@@ -84,7 +84,7 @@ LRESULT DictManagementDialog::OnBackup(WORD, WORD code, HWND, BOOL&) {
 
 LRESULT DictManagementDialog::OnRestore(WORD, WORD code, HWND, BOOL&) {
 	CFileDialog dlg(TRUE, L"snapshot", NULL, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST,
-		L"詞典快照\0*.userdb.txt\0KCSS格式詞典快照\0*.userdb.kct.snapshot\0全部文件\0*.*\0");
+		L"Text Dictionary Snapshot\0*.userdb.txt\0KCSS Dictionary Snapshot\0*.userdb.kct.snapshot\0All files\0*.*\0");
 	if (IDOK == dlg.DoModal()) {
 		char path[MAX_PATH] = {0};
 		WideCharToMultiByte(CP_ACP, 0, dlg.m_szFileName, -1, path, _countof(path), NULL, NULL);
@@ -92,7 +92,7 @@ LRESULT DictManagementDialog::OnRestore(WORD, WORD code, HWND, BOOL&) {
 			MessageBox(L"不知哪裏出錯了，未能完成操作。", L":-(", MB_OK | MB_ICONERROR);
 		}
 		else {
-			MessageBox(L"完成了。", L":-)", MB_OK | MB_ICONINFORMATION);
+			MessageBox(L"Done.", L":-)", MB_OK | MB_ICONINFORMATION);
 		}
 	}
 	return 0;
@@ -108,7 +108,7 @@ LRESULT DictManagementDialog::OnExport(WORD, WORD code, HWND, BOOL&) {
 	user_dict_list_.GetText(sel, dict_name);
 	std::wstring file_name(dict_name);
 	file_name += L"_export.txt";
-	CFileDialog dlg(FALSE, L"txt", file_name.c_str(), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"文本文檔\0*.txt\0全部文件\0*.*\0");
+	CFileDialog dlg(FALSE, L"txt", file_name.c_str(), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"Text files (*.txt)\0*.txt\0All files\0*.*\0");
 	if (IDOK == dlg.DoModal()) {
 		char path[MAX_PATH] = {0};
 		WideCharToMultiByte(CP_ACP, 0, dlg.m_szFileName, -1, path, _countof(path), NULL, NULL);
@@ -120,7 +120,7 @@ LRESULT DictManagementDialog::OnExport(WORD, WORD code, HWND, BOOL&) {
 			MessageBox(L"咦，導出的文件找不着了。", L":-(", MB_OK | MB_ICONERROR);
 		}
 		else {
-			std::wstring report(L"導出了 " + std::to_wstring(result) + L" 條記錄。");
+			std::wstring report(L"Exported " + std::to_wstring(result) + L" records.");
 			MessageBox(report.c_str(), L":-)", MB_OK | MB_ICONINFORMATION);
 			std::wstring param = L"/select, \"" + std::wstring(dlg.m_szFileName) + L"\"";
 			ShellExecute(NULL, L"open", L"explorer.exe", param.c_str(), NULL, SW_SHOWNORMAL);
@@ -139,7 +139,7 @@ LRESULT DictManagementDialog::OnImport(WORD, WORD code, HWND, BOOL&) {
 	user_dict_list_.GetText(sel, dict_name);
 	std::wstring file_name(dict_name);
 	file_name += L"_export.txt";
-	CFileDialog dlg(TRUE, L"txt", file_name.c_str(), OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, L"文本文檔\0*.txt\0全部文件\0*.*\0");
+	CFileDialog dlg(TRUE, L"txt", file_name.c_str(), OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, L"Text files (*.txt)\0*.txt\0All files\0*.*\0");
 	if (IDOK == dlg.DoModal()) {
 		char path[MAX_PATH] = {0};
 		WideCharToMultiByte(CP_ACP, 0, dlg.m_szFileName, -1, path, _countof(path), NULL, NULL);
@@ -148,7 +148,7 @@ LRESULT DictManagementDialog::OnImport(WORD, WORD code, HWND, BOOL&) {
 			MessageBox(L"不知哪裏出錯了，未能完成操作。", L":-(", MB_OK | MB_ICONERROR);
 		}
 		else {
-			std::wstring report(L"導入了 " + std::to_wstring(result) + L" 條記錄。");
+			std::wstring report(L"Imported " + std::to_wstring(result) + L" records.");
 			MessageBox(report.c_str(), L":-)", MB_OK | MB_ICONINFORMATION);
 		}
 	}

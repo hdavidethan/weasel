@@ -38,7 +38,7 @@ LRESULT UIStyleSettingsDialog::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&) {
 	color_schemes_.Attach(GetDlgItem(IDC_COLOR_SCHEME));
 	preview_.Attach(GetDlgItem(IDC_PREVIEW));
 	select_font_.Attach(GetDlgItem(IDC_SELECT_FONT));
-	select_font_.EnableWindow(FALSE);
+	select_font_.EnableWindow(TRUE);
 	
 	Populate();
 	
@@ -54,6 +54,12 @@ LRESULT UIStyleSettingsDialog::OnClose(UINT, WPARAM, LPARAM, BOOL&) {
 
 LRESULT UIStyleSettingsDialog::OnOK(WORD, WORD code, HWND, BOOL&) {
 	EndDialog(code);
+	return 0;
+}
+
+LRESULT UIStyleSettingsDialog::OnOpenConfig(WORD, WORD code, HWND, BOOL&) {
+	std::wstring dir(install_dir());
+	open(dir + L"\\data\\weasel.yaml");
 	return 0;
 }
 

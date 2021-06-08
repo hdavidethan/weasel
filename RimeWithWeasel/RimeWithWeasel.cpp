@@ -391,11 +391,11 @@ bool RimeWithWeaselHandler::_ShowMessage(weasel::Context& ctx, weasel::Status& s
 	bool show_icon = false;
 	if (m_message_type == "deploy") {
 		if (m_message_value == "start")
-			tips = L"正在部署 RIME";
+			tips = L"Deploying RIME";
 		else if (m_message_value == "success")
-			tips = L"部署完成";
+			tips = L"Successfully deployed";
 		else if (m_message_value == "failure")
-			tips = L"有錯誤，請查看日誌 %TEMP%\\rime.weasel.*.INFO";
+			tips = L"An error occurred, please check log at %TEMP%\\rime.weasel.*.INFO";
 	}
 	else if (m_message_type == "schema") {
 		tips = /*L"【" + */status.schema_name/* + L"】"*/;
